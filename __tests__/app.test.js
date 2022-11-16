@@ -37,7 +37,7 @@ describe('lazy-bouncer routes', () => {
     pool.end();
   });
 
-  it.skip('creates a new user', async () => {
+  it('creates a new user', async () => {
     const res = await request(app).post('/api/v1/users').send(mockUser);
     const { firstName, lastName, email } = mockUser;
 
@@ -49,7 +49,7 @@ describe('lazy-bouncer routes', () => {
     });
   });
 
-  it.skip('returns the current user', async () => {
+  it('returns the current user', async () => {
     const [agent, user] = await registerAndLogin();
     const me = await agent.get('/api/v1/users/me');
 
@@ -60,26 +60,26 @@ describe('lazy-bouncer routes', () => {
     });
   });
 
-  it.skip('should return a 401 when signed out and listing all users', async () => {
+  it('should return a 401 when signed out and listing all users', async () => {
     const res = await request(app).get('/api/v1/users');
 
     expect(res.body).toEqual({
-      message: 'You must be signed in to continue',
+      message: 'you need to sign in dawg',
       status: 401,
     });
   });
 
-  it.skip('should return a 403 when signed in but not admin and listing all users', async () => {
+  it('should return a 403 when signed in but not admin and listing all users', async () => {
     const [agent] = await registerAndLogin();
     const res = await agent.get('/api/v1/users');
 
     expect(res.body).toEqual({
-      message: 'You do not have access to view this page',
+      message: 'you aint authorized dawg',
       status: 403,
     });
   });
 
-  it.skip('should return a list of users if signed in as admin', async () => {
+  it('should return a list of users if signed in as admin', async () => {
     const [agent, user] = await registerAndLogin({ email: 'admin' });
     const res = await agent.get('/api/v1/users');
 
